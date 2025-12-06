@@ -1,4 +1,4 @@
-'use Client';
+'use client';
 import { useBudgetStore } from '../store/useBudgetStore';
 import { useBudgetMath } from '../hooks/useBudgetMath';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
@@ -8,7 +8,7 @@ export default function Dashboard() {
     const { data } = useBudgetStore();
 
     const chartData = [
-        { naem: 'Bills', value: data.monthlyBills, color: '#FF8042' },
+        { name: 'Bills', value: data.monthlyBills, color: '#FF8042' },
         { name: 'Food', value: data.food, color: '#00C49F' },
         { name: 'Transport', value: data.transport, color: '#FFBB28'    },
         { name: 'Subs', value: data.subscriptions, color: '#0088FE'  },

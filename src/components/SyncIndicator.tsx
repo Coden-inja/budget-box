@@ -1,12 +1,17 @@
 'use client';
-import { useBudgetStore } from '../store/useBudgetStore';
+import { useBudgetStore } from '@/store/useBudgetStore';
 import { useEffect, useState } from 'react';
 
 export default function SyncIndicator() {
   const { status, syncToServer, lastUpdated } = useBudgetStore();
   const [isOnline, setIsOnline] = useState(true);
+  
+  // FIX: New state to track if we are on the client
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    // We are now on the client!
+    setHasMounted(true);
     setIsOnline(navigator.onLine);
 
     const handleOnline = () => {
@@ -27,7 +32,6 @@ export default function SyncIndicator() {
   }, [syncToServer]);
 
 
-
   const getStatusDisplay = () => {
     if (!isOnline) return { text: 'Offline', color: 'bg-gray-500', icon: '📡' };
     
@@ -45,6 +49,10 @@ export default function SyncIndicator() {
 
   const display = getStatusDisplay();
 
+  if (!hasMounted) {
+    return null; 
+  }
+
   return (
     <div className="flex items-center gap-3">
       <span className="text-xs text-gray-400">
@@ -52,12 +60,12 @@ export default function SyncIndicator() {
       </span>
       
       <button
-        onClick={() => syncToServer()} // Allow user to manually force sync
+        onClick={() => syncToServer()}
         disabled={status === 'synced' || !isOnline}
         className={`
           flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-sm transition-all
           ${display.color} 
-          ${status === 'sync-pending' ? 'animate-pulse' : ''} /* Pulse animation when syncing */
+          ${status === 'sync-pending' ? 'animate-pulse' : ''}
         `}
       >
         <span>{display.icon}</span>

@@ -9,11 +9,11 @@ export async function POST(request: Request) {
     }
 
     
-    await db.budget.upsert({ 
-      where: { userId: session.user.id },
-      update: { ...body.data },
-      create: { ...body.data }
-    });
+    // await db.budget.upsert({ 
+    //   where: { userId: session.user.id },
+    //   update: { ...body.data },
+    //   create: { ...body.data }
+    // });
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 

@@ -12,7 +12,7 @@ export const useBudgetMath = () => {
         
         const today = new Date();
         const currentDay = today.getDate();
-        const dayInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getData();
+        const dayInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
         const predictedSpend = currentDay > 0
             ? (totalExpenses / currentDay) * dayInMonth

@@ -12,6 +12,6 @@ export type SyncStatus = 'local-only' | 'sync-pending' | 'synced';
 export interface BudgetState {
     data: BudgetData;
     status: SyncStatus;
-    lastSynced: string;
+    lastUpdated: string;
 
 }
