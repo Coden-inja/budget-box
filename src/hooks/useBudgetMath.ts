@@ -1,7 +1,7 @@
 import { useBudgetStore } from "../store/useBudgetStore";
 import { useMemo } from "react";
 
-export const use BudgetMath = () => {
+export const useBudgetMath = () => {
     const { data } = useBudgetStore();
 
     const analytics = useMemo(() => {
