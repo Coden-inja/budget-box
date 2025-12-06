@@ -1,5 +1,5 @@
 'use client'; 
-import { useBudgetStore } from '@/store/useBudgetStore';
+import { useBudgetStore } from '../store/useBudgetStore';
 
 export default function BudgetForm() {
 
