@@ -1,0 +1,33 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  budget   Budget?  // Relation: One user has one budget
+}
+
+model Budget {
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  
+  // The Data Fields [cite: 14]
+  income        Float    @default(0)
+  monthlyBills  Float    @default(0)
+  food          Float    @default(0)
+  transport     Float    @default(0)
+  subscriptions Float    @default(0)
+  miscellaneous Float    @default(0)
+  
+  lastSynced    DateTime @default(now())
+}
