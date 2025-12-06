@@ -7,6 +7,27 @@ interface BudgetStore extends BudgetState {
 
     setSyncStatus: (status: SyncStatus) => void;
 
+    syncToServer: () => Promise<void>;
+
+}
+
+syncToServer: async () => {
+    const state = get();
+    if (state.status === 'synced') return;
+    try {
+        const response = await fetch('/api/budget/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: state.data }),
+        });
+        if (response.ok) {
+            set({ status: 'synced', lastUpdated: new Date().toISOString() });
+        } else {
+            console.error('Server refused sync');
+        }
+    } catch (error) {
+        console.error('Network error, keeping data local');
+    }
 }
 
 const initialState: BudgetData = {
